@@ -12,8 +12,15 @@ from utils import load_data
 def get_classification_error():
     pass
 
-def get_entropy():
-    pass
+def get_entropy(data):
+    total = sum(data.values())
+
+    result = 0
+    for value in list(data.values()):
+        if value:
+            result -= (value/total) * math.log(value/total, 2)
+        
+    return result
 
 def get_gini_index(data):
     total = sum(data.values())
@@ -44,7 +51,9 @@ def chi_square_lookup(dof, alpha=0.01):
 """
 returns False if expected gain in information is not met
 """
-def get_chi_square(dist1, dists):
+def get_chi_square(dist1, dists, alpha):
+    if alpha == 1: return True
+    
     X2 = 0
     for dist in dists:
         for key, value in dist1.items():
@@ -54,5 +63,5 @@ def get_chi_square(dist1, dists):
             X2 += math.pow(real - expected, 2)/expected
     
     dof = (len(dist1) - 1)*(len(dists) - 1) #gets dof according to current parent data and not according to root node data
-    return X2 >= chi_square_lookup(dof)
+    return X2 >= chi_square_lookup(dof, alpha)
     
