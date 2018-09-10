@@ -11,6 +11,9 @@ This code was written and tested on python3.6. It might run on older versions as
 - `sudo pip3 install pandas numpy`
 - `python3 main.py`
 
+Random Forest implementation can be run by the following command.
+- `python3 forest.py`
+
 ## Problem Description
 Splice junctions are points on a DNA sequence at which superfluous DNA is removed during the process of protein creation in higher organisms. The problem posed in this dataset is to recognise, given a sequence of DNA, the boundaries between exons (the parts of the DNA sequence retained after splicing) and introns (the parts of the DNA sequence that are spliced out). This problem consists of two subtasks: recognising exon/intron boundaries (referred to as EI sites), and recognising intron/exon boundaries (IE sites). (In the biological community, IE borders are referred to as ""acceptors"" while EI borders are referred to as ""donors"".)
 
@@ -34,10 +37,12 @@ Attributes predicted: given a position in the middle of a window 60 DNA sequence
 - 88% accuracy on the testing set was obtained after implementing Chi-Square method with 95% confidence.
 - 90% accuracy on the testing set was obtained with Chi-Square and 99% confidence.
 - Further increasing the confidence level didn’t show any improvement in the accuracy.
+- 93% accuracy on the testing set was obtained by implementing random forest with 17 trees each with randomly chosen 60% of the training set without replacement. (Since, random forest wasn’t asked, it is kept separately as a file)
 
 ## Which option works well and why
 - The best accuracy was obtained using Chi-Square with 99% confidence. With lower confidence level, the accuracy dropped because of overfitting since lower confidence level would mean further splitting of the node. For instance, with 0% confidence level, every different case in the training set would have a different node, given no noise.
 - With higher confidence level than 99%, the model is generalising too much and could possibly underfit. In my implementation, I got similar results with 99.5%.
 - A model with Chi-Square performs better than relying on IG to be 0. That happens since in the latter approach model would overfit. It’s tantamount to Chi-Square with 0% confidence.
 - I suspect, further improvement could be made by working on the ambiguous data. In my implementation during the training, rows with ambiguous characters were simply removed since there were only 7 of them. And in the prediction step, when encountered an ambiguous character, a prediction was made using the data distribution of the current node.
+- Random forest improves the accuracy significantly. I believe since it’s trained on different parts of the same training set, it reduces the variance a lot. Another important aspect to random forest is that they don’t overfit at all. Adding more trees wouldn’t lead to overfitting.
 
