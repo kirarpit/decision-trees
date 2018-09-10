@@ -6,7 +6,7 @@
 - Chi-square test is used to determine when to stop growing the tree.
 
 ## How to run
-This code was written and tested on python3.6. It might run on older versions as well. Below are the instructions to install pandas and numpy dependencies for python3.6.
+This code was written and tested on python3.6. It might run on older versions as well. Below are the instructions to install the dependencies and run the code.
 - `sudo apt install python3-pip`
 - `sudo pip3 install pandas numpy`
 - `python3 main.py`
