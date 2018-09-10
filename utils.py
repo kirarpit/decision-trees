@@ -26,7 +26,7 @@ def load_data(filename, header=None):
 
     return False
 
-def pre_process_training_data(data):
+def pre_process_data(data):
     
     data = np.delete(data, 0, 1)    #delete the ID column from original data
     preData = np.empty((0, len(data[0][0]) + 1), dtype=object)  #create empty preprocessed data array

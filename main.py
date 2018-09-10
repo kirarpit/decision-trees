@@ -7,7 +7,7 @@ Created on Thu Sep  6 13:48:45 2018
 """
 
 from data import Data
-from utils import pre_process_training_data, load_data, decode, encode_string
+from utils import pre_process_data, load_data, decode, encode_string
 from decisionTree import get_decision_tree
 import numpy as np
 
@@ -23,8 +23,9 @@ def check_accuracy(root, data):
             cnt += 1
     print("accuracy ", cnt/data.shape[0])
 
-x = pre_process_training_data(load_data('training.csv'))
+x = pre_process_data(load_data('training.csv'))
 
+# randomly choose 70% rows for training and rest 30% for validation
 t_rows = list(np.random.choice(len(x), int(len(x) * 0.7), replace=False))
 v_rows = list(set(list(range(len(x))))^set(t_rows))
 
@@ -32,15 +33,13 @@ v_rows = list(set(list(range(len(x))))^set(t_rows))
 x_training = x[np.array(t_rows), :]
 x_validation = x[np.array(v_rows), :]
 
-# Building the decision tree using training set
 data = Data(x_training)
-root = get_decision_tree(data)
-
-# Checking prediction accuracy on validation set
-check_accuracy(root, x_validation)
-
-# Checking prediction accuracy on training set
-check_accuracy(root, x_training)
+alphas = [1, 0.05, 0.01, 0.005]    #Build a tree for each alpha
+for alpha in alphas:
+    root = get_decision_tree(data, alpha)  #Building the decision tree using training set
+    check_accuracy(root, x_validation)  #Checking prediction accuracy on validation set
+    check_accuracy(root, x_training)    #Checking prediction accuracy on training set
+    print()
 
 # Predicting testing set and writing it to a file
 f = open('prediction.csv','w')

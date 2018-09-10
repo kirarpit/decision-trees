@@ -53,9 +53,11 @@ class Criterion:
     """
     returns False if splitting needs to be stopped
     """
-    def split(self):
+    def split(self, alpha):
         splitsDataDist = [x.getDist() for _, x in self.bestSplits]
-        IG = get_chi_square(self.data.getDist(), splitsDataDist)    #get chi square to decide if we should split further
+        IG = get_chi_square(self.data.getDist(), splitsDataDist, alpha)    #get chi square to decide if we should split further
+        
+        if IG and alpha == 1 and self.maxIG == 0: IG = False
         
         if not IG:
             return False

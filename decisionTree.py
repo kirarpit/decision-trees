@@ -12,7 +12,7 @@ import logger as lg
 """
 builds the decision tree
 """
-def get_decision_tree(data):
+def get_decision_tree(data, alpha):
     lg.main.debug("Get decision tree called!")
     
     node = Node(data)
@@ -21,13 +21,13 @@ def get_decision_tree(data):
         return node
     
     criterion = Criterion(data) #creates a criterion object which finds the best feature to split on
-    datasets = criterion.split()
+    datasets = criterion.split(alpha)
     if not datasets:
         return node
     
     node.setFeature(criterion.bestFeature)  #node stores the feature the data is split on for quering later on
     for key, data in datasets:
         lg.main.debug("Adding a child")
-        node.addChild(key, get_decision_tree(data))
+        node.addChild(key, get_decision_tree(data, alpha))
     
     return node
