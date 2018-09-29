@@ -23,6 +23,8 @@ Attributes predicted: given a position in the middle of a window 60 DNA sequence
 - "exon -> intron" boundary (EI) [These are sometimes called "acceptors"]
 - neither (N)
 
+[Here](https://www.kaggle.com/c/project-1-decision-trees-cs529-2018) is the link of the competition on Kaggle.
+
 ## High Level Description
 ### Decision Tree
 - The main file uses ‘load_data’ and ‘pre_process_data’ functions from the utility file to load and pre-process the data.
