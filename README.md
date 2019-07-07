@@ -1,5 +1,7 @@
 # Decision Trees with Chi-Square
 
+## Update: [Secured 1st position in in-class competition on Kaggle](https://www.kaggle.com/c/project-1-decision-trees-cs529-2018/leaderboard)
+
 ## About
 - This is a very basic implementation of a ML technique to make predictions called Decision Trees.
 - It uses Gini-index to calculate Information Gain by calculating data impurity/entropy.
